@@ -11,7 +11,7 @@ Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pi
 Basic experimental design
 -------------------------
 
-<img align="left" src="etc/proseq.png" width="250">
+<img align="left" src="etc/proseq.png" width="200">
 
 GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  A 
 schematic of the PRO-seq protocol is shown in Fig. 1.  PRO-seq begins using cell nuclei isolated from a cell 
@@ -20,7 +20,7 @@ RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). Nascen
 streptavidin beads, and deep sequenced using Illumina technology.
 
 
-<BR><BR>
+<BR><BR><BR><BR>
 
 Read mapping and data visualization
 -----------------------------------
