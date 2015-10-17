@@ -20,13 +20,18 @@ GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while worki
 Read mapping and data visualization
 -----------------------------------
 
-The Danko lab pipeline for aligning PRO-seq data can be found here: https://github.com/Danko-Lab/utils/tree/master/proseq.  
-The process for GRO-seq data is very similar in most respects, but does not require switching the strand of reads after mapping.  A pipeline version for this GRO-seq will be committed to GitHub soon.
+The Danko lab pipeline for aligning PRO-seq data can be found here: https://github.com/Danko-Lab/utils/tree/master/proseq.  The process for GRO-seq data is very similar in most respects, but does not require switching the strand of reads after mapping.  A pipeline version for this GRO-seq will be committed to GitHub soon.
 
-To run our pipeline, users are encourage to clone the repository and install dependencies indicated in the README.md.
+To run our pipeline users must first download the script files and install dependencies indicated in the README.md.  Users are currently required to edit each .bsh script and prove paths to the chromInfo of the genome build, swap directory, and BWA index (this interface will become more user friendly soon).
 
+Afterword, users enter a directory containing PRO-seq fastq files and type: 
 
+``` > make ```
 
+The script will operate three pre-processing options, including: 
+1. Preprocessing reads to filter those which do not pass Illumina QC filters and trimming the sequencing adapter using cutadapt.
+2. Mapping trimmed reads using BWA.
+3. BAM files are converted into bedGraph and BigWig formats for downstream analysis and visualization. 
 
 Identifying regulatory elements using dREG
 ------------------------------------------
