@@ -20,6 +20,8 @@ RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). Nascen
 streptavidin beads, and deep sequenced using Illumina technology.
 
 
+<BR><BR>
+
 Read mapping and data visualization
 -----------------------------------
 
