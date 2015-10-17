@@ -11,7 +11,7 @@ Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pi
 Basic experimental design
 -------------------------
 
-<img align="right" src="etc/proseq.png">
+<img align="left" src="etc/proseq.png">
 
 GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  A 
 schematic of the PRO-seq protocol is shown in Fig. 1.  PRO-seq begins using cell nuclei isolated from a cell 
