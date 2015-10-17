@@ -29,8 +29,11 @@ Afterword, users enter a directory containing PRO-seq fastq files and type:
 ``` > make ```
 
 The script will operate three pre-processing options, including: 
+
 1. Preprocessing reads to filter those which do not pass Illumina QC filters and trimming the sequencing adapter using cutadapt.
+
 2. Mapping trimmed reads using BWA.
+
 3. BAM files are converted into bedGraph and BigWig formats for downstream analysis and visualization. 
 
 Identifying regulatory elements using dREG
