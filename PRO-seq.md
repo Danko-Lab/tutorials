@@ -20,7 +20,13 @@ GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while worki
 Read mapping and data visualization
 -----------------------------------
 
-Coming soon.
+The Danko lab pipeline for aligning PRO-seq data can be found here: https://github.com/Danko-Lab/utils/tree/master/proseq.  
+The process for GRO-seq data is very similar in most respects, but does not require switching the strand of reads after mapping.  A pipeline version for this GRO-seq will be committed to GitHub soon.
+
+To run our pipeline, users are encourage to clone the repository and install dependencies indicated in the README.md.
+
+
+
 
 Identifying regulatory elements using dREG
 ------------------------------------------
@@ -32,6 +38,11 @@ Working with data using the bigWig package for R
 
 Coming soon.
 
+Transcription Unit Identification
+---------------------------------
+
+Coming soon.
+
 Testing for changes between conditions
 --------------------------------------
 
@@ -40,6 +51,6 @@ Coming soon.
 Useful references
 -----------------
 
-- [ ] GRO-seq: http://www.sciencemag.org/content/322/5909/1845.long
-- [ ] PRO-seq: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3974810/
-- [ ] dREG: http://www.nature.com/nmeth/journal/v12/n5/full/nmeth.3329.html
+* GRO-seq: http://www.sciencemag.org/content/322/5909/1845.long
+* PRO-seq: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3974810/
+* dREG: http://www.nature.com/nmeth/journal/v12/n5/full/nmeth.3329.html
