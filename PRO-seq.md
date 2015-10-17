@@ -14,7 +14,7 @@ Basic experimental design
 GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  
 A schematic of the PRO-seq protocol is shown in Fig. 1.
 
-![fig1](etc/proseq.png)
+<img align="right" src="etc/proseq.png">
 
 PRO-seq begins using cell nuclei isolated from a cell population of interest (step #1).  RNA polymerases are halted by 
 depleting rNTP monomers that are polymerized in RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). 
