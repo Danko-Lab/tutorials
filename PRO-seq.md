@@ -6,7 +6,7 @@ the location and orientation of actively transcribing RNA polymerase I, II, and 
 technologies are particular powerful because they provides a genome-wide readout of gene and lincRNA transcription, 
 and the location and relative activities of active enhancers and promoters that regulate gene transcription.
 
-Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pipeline used in the Danko lab.
+The Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pipeline used in the <a href="http://www.dankolab.org">Danko lab</a>.
 
 Basic experimental design
 -------------------------
