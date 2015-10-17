@@ -3,8 +3,8 @@ Analyzing PRO-seq data.
 
 Global Run-On and Sequencing (GRO-seq) and Precision Run-On and Sequencing (PRO-seq) are technologies for mapping 
 the location and orientation of actively transcribing RNA polymerase I, II, and III (Pol) across the genome.  Both
-technologies are particular powerful because they provides a genome-wide readout of gene and lincRNA transcription, 
-and the location and relative activities of active enhancers and promoters that regulate gene transcription.
+technologies are particular powerful because they provide a genome-wide readout of gene and lincRNA transcription, 
+as well as the location and relative activities of active enhancers and promoters that regulate transcription.
 
 The Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pipeline used in the <a href="http://www.dankolab.org">Danko lab</a>.
 
