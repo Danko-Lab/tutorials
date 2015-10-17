@@ -13,14 +13,9 @@ Basic experimental design
 
 <img align="left" src="etc/proseq.png" width="200">
 
-GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  A 
-schematic of the PRO-seq protocol is shown in Fig. 1.  PRO-seq begins using cell nuclei isolated from a cell 
-population of interest (step #1).  RNA polymerases are halted by depleting rNTP monomers that are polymerized in 
-RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). Nascent RNAs are purified using 
-streptavidin beads, and deep sequenced using Illumina technology.
+GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  A schematic of the PRO-seq protocol is shown in Fig. 1 (right).  PRO-seq begins using cell nuclei isolated from a cell population of interest (step #1).  RNA polymerases are halted by depleting rNTP monomers from the nuclei prep.  Engaged RNA polymerases incorporate a single biotin-labeled rNTP (step #2).   The run-on reaction is conducted in the presence of detergents which remove impediments to Pol II transcription and prevent new initiation. Incorporation of a biotin labeled nucleotide is thought to stall RNA polymerase after a single nucleotide is incorporated, resulting in single-nucleotide resolution of RNA polymerases across the genome.  Nascent RNAs are purified using streptavidin beads, amplified by PCR, and deep sequenced using Illumina technology (step #3).
 
-
-<BR><BR><BR><BR><BR><BR>
+<BR><BR><BR><BR><BR>
 
 Read mapping and data visualization
 -----------------------------------
