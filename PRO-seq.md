@@ -11,14 +11,13 @@ Danko lab generally uses PRO-seq.  This tutorial describes the basic analysis pi
 Basic experimental design
 -------------------------
 
-GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  
-A schematic of the PRO-seq protocol is shown in Fig. 1.
-
 <img align="right" src="etc/proseq.png">
 
-PRO-seq begins using cell nuclei isolated from a cell population of interest (step #1).  RNA polymerases are halted by 
-depleting rNTP monomers that are polymerized in RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). 
-Nascent RNAs are purified using streptavidin beads, and deep sequenced using Illumina technology.
+GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while working in John Lis' lab at Cornell.  
+A schematic of the PRO-seq protocol is shown in Fig. 1.  PRO-seq begins using cell nuclei isolated from a cell 
+population of interest (step #1).  RNA polymerases are halted by depleting rNTP monomers that are polymerized in 
+RNA.  RNA polymerases incorporate a single biotin-labeled rNTP (step #2). Nascent RNAs are purified using 
+streptavidin beads, and deep sequenced using Illumina technology.
 
 
 Read mapping and data visualization
