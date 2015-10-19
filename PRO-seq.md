@@ -34,7 +34,7 @@ Two options are required to run proseqMapper.bsh, including a path to a BWA inde
 
 The proseqMapper.bsh script is run using: 
 
-``` bash proseqMapper.bsh --bwa-index=/path/to/bwa/index/file/bwa-index --chrom-info=/path/to/chrom/info/file/chrom.info```
+``` bash proseqMapper.bsh --bwa-index=/bwa/index/file/bwa-index --chrom-info=/chrom/info/file/chrom.info```
 
 For help with the proseqMapper.bsh, type: 
 
