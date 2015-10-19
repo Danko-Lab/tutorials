@@ -22,19 +22,39 @@ Read mapping and data visualization
 
 The Danko lab pipeline for aligning PRO-seq data can be found here: https://github.com/Danko-Lab/utils/tree/master/proseq.  The process for GRO-seq data is very similar in most respects, but does not require switching the strand of reads after mapping.  A pipeline version for this GRO-seq will be committed to GitHub soon.
 
-To run our pipeline users must first download the script files and install dependencies indicated in the README.md.  Users are currently required to edit each .bsh script and prove paths to the chromInfo of the genome build, swap directory, and BWA index (this interface will become more user friendly soon).
-
-Afterword, users enter a directory containing PRO-seq fastq files and type: 
-
-``` > make ```
-
-The script will operate three pre-processing options, including: 
+To run our pipeline users must first download the script files and install dependencies indicated in the README.md.  Afterword, users enter a directory containing PRO-seq fastq files.  The script will automate three routine pre-processing and alignment options, including: 
 
 1. Preprocessing reads to filter those which do not pass Illumina QC filters and trimming the sequencing adapter using cutadapt.
 
 2. Mapping trimmed reads using BWA.
 
 3. BAM files are converted into bedGraph and BigWig formats for downstream analysis and visualization. 
+
+Two options are required to run proseqMapper.bsh, including a path to a BWA index file (generated using the 'bwa index' command), and the path to the chromInfo file for the genome of choice.
+
+The proseqMapper.bsh script is run using: 
+
+``` bash proseqMapper.bsh --bwa-index=/path/to/bwa/index/file/bwa-index --chrom-info=/path/to/chrom/info/file/chrom.info```
+
+For help with the proseqMapper.bsh, type: 
+
+``` 
+$ bash proseqMapper.bsh --help
+
+Preprocesses and aligns PRO-seq data.
+
+Takes *.fastq.gz in the current working directory as input and writes
+BAM and bedGraph files to the current working directory as output.
+
+bash proseqMapper.bsh [options] [files]
+
+options:
+-h, --help                show brief help.
+-i, --bwa-index=PATH      path to the BWA index of the target genome (i.e., bwa index).
+-c, --chrom-info=PATH     location of the chromInfo table.
+-t, --tmp=PATH            path to a temporary storage directory.
+-o, --output-dir=DIR      specify a directory to store output in.
+```
 
 Identifying regulatory elements using dREG
 ------------------------------------------
