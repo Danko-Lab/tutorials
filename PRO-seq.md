@@ -53,7 +53,22 @@ options:
 Identifying regulatory elements using dREG
 ------------------------------------------
 
-Coming soon.
+dREG takes as input .bigWig files output after mapping PRO-seq reads to the reference genome and a pre-trained support vector regression (SVR) model.  
+
+* PRO-seq files are required to be in the bigWig format standard created by the UCSC (more information can be found here: http://genome.ucsc.edu/goldenPath/help/bigWig.html).  
+* The SVR model is included in this package (under dREG_model/asvm.RData).  Users are advised to use that when possible.
+
+To use dREG, type: 
+
+    bash dREG.bsh plus_strand.bw minus_strand.bw out_prefix asvm.RData [nthreads]
+
+    plus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
+    minus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
+    out_prefix		-- The prefix of the output file.
+    asvm.RData		-- The path to the RData file containing the pre-trained SVM.
+    [nthreads]		-- [optional, default=1] The number of threads to use.
+
+For more information see the dREG usage instructions, here: https://github.com/Danko-Lab/dREG/blob/master/README.md
 
 Working with data using the bigWig package for R
 ------------------------------------------------
