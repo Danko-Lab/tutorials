@@ -99,10 +99,10 @@ To do peak calling with dREG, type:
 
     plus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
     minus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
-    out_prefix		-- The prefix of the output file.
-    asvm.RData		-- The path to the RData file containing the pre-trained SVM.
-    [nthreads]		-- [optional, default=1] The number of threads to use.
-    [GPU]		    -- [optional, default=_blank_] GPU can be used with the aid of the Rgtsvm package.
+    out_prefix      -- The prefix of the output file.
+    asvm.RData      -- The path to the RData file containing the pre-trained SVM.
+    [nthreads]      -- [optional, default=1] The number of threads to use.
+    [GPU]           -- [optional, default=_blank_] GPU can be used with the aid of the Rgtsvm package.
 
 For more information see the dREG usage instructions, here: https://github.com/Danko-Lab/dREG/blob/master/README.md
 
