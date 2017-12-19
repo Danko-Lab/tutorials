@@ -65,7 +65,6 @@ Notes for **CBSUdanko** users:
     CBSUdanko:/storage/data/short_read_index/hg19/bwa.rRNA-0.7.5a-r405/hg19.rRNA.bwt
 (2) Chromosome table for hg19:
     CBSUdanko:/storage/data/hg19/hg19.chromInfo
-
 ``` 
 
 PRO-seq quality control (QC)
