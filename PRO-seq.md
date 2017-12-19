@@ -59,7 +59,7 @@ options:
 
 The script requires two parameters for genome information, including BWA index (--bwa-index) and chromosome size (--chrom-info). For GRO-seq process, '-G' should be specified.
 
-Notes for *CBSUdanko* users:
+Notes for **CBSUdanko** users:
 ``` 
 (1) BWA index for hg19: 
     CBSUdanko:/storage/data/short_read_index/hg19/bwa.rRNA-0.7.5a-r405/hg19.rRNA.bwt
@@ -85,18 +85,25 @@ Identifying regulatory elements using dREG
 
 dREG takes as input .bigWig files output after mapping PRO-seq reads to the reference genome and a pre-trained support vector regression (SVR) model.  
 
-* PRO-seq files are required to be in the bigWig format standard created by the UCSC (more information can be found here: http://genome.ucsc.edu/goldenPath/help/bigWig.html).  
-* The SVR model is included in this package (under dREG_model/asvm.RData).  Users are advised to use that when possible.
+* PRO-seq files are required to be in the bigWig format standard created by the UCSC (more information can be found here: http://genome.ucsc.edu/goldenPath/help/bigWig.html). 
+* We suggest to use this script to prepare your PRO-seq, GRO-seq, or ChRO-seq data in bigWig format. 
+  https://github.com/Danko-Lab/tutorials/blob/master/PRO-seq.md#read-mapping 
+
+* The SVR model contained in the dREG  package (under dREG_model/asvm.RData) is a simple model. Users are advised to use that followed with dREG-HD package when possible.
+
+* The well-trained model can be downloaed from FTP, Users are advised to do peak calling directly using this model.
+  ftp://cbsuftp.tc.cornell.edu/danko/hub/dreg.models/asvm.gdm.6.6M.20170828.rdata. 
 
 To use dREG, type: 
 
-    bash dREG.bsh plus_strand.bw minus_strand.bw out_prefix asvm.RData [nthreads]
+    bash run_peakcalling.bsh plus_strand.bw minus_strand.bw out_prefix asvm.RData [nthreads] [GPU]
 
     plus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
     minus_strand.bw	-- PRO-seq data (plus strand) formatted as a bigWig file.
     out_prefix		-- The prefix of the output file.
     asvm.RData		-- The path to the RData file containing the pre-trained SVM.
     [nthreads]		-- [optional, default=1] The number of threads to use.
+    [GPU]		    -- [optional, default=_blank_] GPU can be used with the aid of the Rgtsvm package.
 
 For more information see the dREG usage instructions, here: https://github.com/Danko-Lab/dREG/blob/master/README.md
 
