@@ -57,14 +57,14 @@ options:
 
 ```
 
-The script requires two parameters for genome information, including BWA index (--bwa-index) and chromosome size (--chrom-info). For GRO-seq process, '-G' should be used
+The script requires two parameters for genome information, including BWA index (--bwa-index) and chromosome size (--chrom-info). For GRO-seq process, '-G' should be specified.
 
-Notes for CBSUdanko users:
+Notes for *CBSUdanko* users:
 ``` 
-BWA index for hg19: 
-CBSUdanko:/storage/data/short_read_index/hg19/bwa.rRNA-0.7.5a-r405/hg19.rRNA.bwt
-Chromosome table for hg19:
-CBSUdanko:/storage/data/hg19/hg19.chromInfo
+(1) BWA index for hg19: 
+    CBSUdanko:/storage/data/short_read_index/hg19/bwa.rRNA-0.7.5a-r405/hg19.rRNA.bwt
+(2) Chromosome table for hg19:
+    CBSUdanko:/storage/data/hg19/hg19.chromInfo
 
 ``` 
 
