@@ -91,10 +91,10 @@ dREG takes as input .bigWig files output after mapping PRO-seq reads to the refe
 
 * The SVR model contained in the dREG  package (under dREG_model/asvm.RData) is a simple model. Users are advised to use that followed with dREG-HD package when possible.
 
-* The well-trained model can be downloaed from FTP, Users are advised to do peak calling directly using this model.
+* The well-trained model can be downloaed from FTP, users are advised to do peak calling directly using this model.
   ftp://cbsuftp.tc.cornell.edu/danko/hub/dreg.models/asvm.gdm.6.6M.20170828.rdata. 
 
-To use dREG, type: 
+To do peak calling with dREG, type: 
 
     bash run_peakcalling.bsh plus_strand.bw minus_strand.bw out_prefix asvm.RData [nthreads] [GPU]
 
