@@ -44,12 +44,29 @@ bash proseqMapper.bsh [options] [files]
 
 options:
 -h, --help                show brief help.
+
 -i, --bwa-index=PATH      path to the BWA index of the target genome (i.e., bwa index).
 -c, --chrom-info=PATH     location of the chromInfo table.
--t, --tmp=PATH            path to a temporary storage directory.
--q, --qc                  writes out standard QC plots.
+-T, --tmp=PATH            path to a temporary storage directory.
 -o, --output-dir=DIR      specify a directory to store output in.
+-I, --fastq=PREFIX        Prefix for input files.
+
+-q, --qc                  writes out standard QC plots.
+-b6, --barcode6           collapses unique reads and trims a 6bp barcode.
+-G, --map5=TRUE|FALSE     maps the 5' end of reads, for GRO-seq [default == FALSE]
+
 ```
+
+The script requires two parameters for genome information, including BWA index (--bwa-index) and chromosome size (--chrom-info). For GRO-seq process, '-G' should be used
+
+Notes for CBSUdanko users:
+``` 
+BWA index for hg19: 
+CBSUdanko:/storage/data/short_read_index/hg19/bwa.rRNA-0.7.5a-r405/hg19.rRNA.bwt
+Chromosome table for hg19:
+CBSUdanko:/storage/data/hg19/hg19.chromInfo
+
+``` 
 
 PRO-seq quality control (QC)
 ----------------------------
