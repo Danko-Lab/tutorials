@@ -19,6 +19,7 @@ GRO-seq and PRO-seq were developed by Leighton Core and Hojoong Kwak while worki
 
 Read mapping
 ------------
+New version of read mapping is HERE<https://github.com/Danko-Lab/proseq2.0>
 
 The Danko lab pipeline for aligning PRO-seq data can be found here: https://github.com/Danko-Lab/utils/tree/master/proseq.  The script will automate three routine pre-processing and alignment options, including pre-processing reads and trimming the sequencing adapter (cutadapt), mapping reads to a reference genome (BWA), and converting BAM files into bedGraph and BigWig formats (kentsource).  After running this script, users should have processed data files in the specified output directory.
 
