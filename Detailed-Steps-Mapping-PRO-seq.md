@@ -9,7 +9,7 @@ Finalize your BioHPC reservation
 --------------------------------
 
 Four of you had accounts. For those who did not, find the e-mail invitation from BioHPC (should have received this yesterday, Nov. 26th).
-<img align="left" src="etc\BioHPCpwd.png" width="600">
+<img align="left" src="etc\BioHPCpwd.png" width="900">
 
 Fig. 1: E-mail from BioHPC. Select the link and set your password.
 
