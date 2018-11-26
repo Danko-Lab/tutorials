@@ -5,10 +5,14 @@ Global Run-On and Sequencing (GRO-seq), Precision Run-On and Sequencing (PRO-seq
 
 <BR><BR>
 
-## Software in B30B: 
-## PUTTY 
-## Filezilla
-## No IGV! But have Java v8.
+Finalize your BioHPC reservation
+--------------------------------
+
+Four of you had accounts. For those who did not, find the e-mail invitation from BioHPC (should have received this yesterday, Nov. 26th).
+<img align="left" src="etc\BioHPCpwd.png" width="200">
+
+
+
 
 Log into the high performance compute server
 --------------------------------------------
@@ -21,10 +25,12 @@ An SSH clinet called "PuTTY" is installed on computers in B30B.
 
 * Under Hostname, enter the host name assinged to you (see the Power Point slide).
 
-* Select Open 
+* Select Open and enter your username (you netID) and your password.
 
 Hint: You can download PuTTY for your own computer from this URL: 
 ``` https://www.putty.org/ ```
 
+Look at the raw data ChRO-seq data in fastq format
+--------------------------------------------------
 
-
+The next step is to use LINUX commands to navigate to the raw ChRO-seq data.
