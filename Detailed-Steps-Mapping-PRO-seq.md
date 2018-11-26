@@ -125,17 +125,89 @@ Run this as follows:
 
 ```
 
-Map the data to the mouse genome using BWA
-------------------------------------------
+Map short reads to the mouse genome
+-----------------------------------
 
-The next step is to map raw ChRO-seq data to the mouse genome. This is done using a software program that aligns short reads to the reference genome 
+The next step is to map raw ChRO-seq data to the mouse genome. This is done using a software program that aligns short reads to a reference genome. 
 
-We will use the software program BWA for this. BWA 
+We will use the software program BWA for this. To see the options type bwa: 
+
+```
+[dankoc@cbsumm22 data]$ bwa
+
+Program: bwa (alignment via Burrows-Wheeler transformation)
+Version: 0.7.13-r1126
+Contact: Heng Li <lh3@sanger.ac.uk>
+
+Usage:   bwa <command> [options]
+
+Command: index         index sequences in the FASTA format
+         mem           BWA-MEM algorithm
+         fastmap       identify super-maximal exact matches
+         pemerge       merge overlapping paired ends (EXPERIMENTAL)
+         aln           gapped/ungapped alignment
+         samse         generate alignment (single ended)
+         sampe         generate alignment (paired ended)
+         bwasw         BWA-SW for long queries
+
+         shm           manage indices in shared memory
+         fa2pac        convert FASTA to PAC format
+         pac2bwt       generate BWT from PAC
+         pac2bwtgen    alternative algorithm for generating BWT
+         bwtupdate     update .bwt to the new format
+         bwt2sa        generate SA from BWT and Occ
+
+Note: To use BWA, you need to first index the genome with `bwa index'.
+      There are three alignment algorithms in BWA: `mem', `bwasw', and
+      `aln/samse/sampe'. If you are not sure which to use, try `bwa mem'
+      first. Please `man ./bwa.1' for the manual.
+
+```
+
+Note that BWA works in two steps. First, we need to generate a compressed file that represents the mouse genome using very efficient machine language. I have placed a text copy of the mouse reference genome (version mm10) here: /workdir/mm10/mm10.fa
+
+To do this, use bwa index: 
+
+```
+bwa index
+```
+
+Next, align reads to this mm10 reference genome: 
 
 ```
 bwa aln
 ```
 
-Look at the raw data ChRO-seq data in fastq format
---------------------------------------------------
+And convert the resulting alignments (.bai format) into a more standard BAM format: 
+
+```
+bwa samse
+```
+
+The BAM file represents the location of reads that map to the reference genome. That's it - you've done it!
+
+Note: See the reference for BWA here: 
+https://academic.oup.com/bioinformatics/article/25/14/1754/225615
+
+Convert BAM files into bigWig format
+------------------------------------
+
+Much of what we will do tomorrow uses a more compact format, known as bigWig. BigWig is a binary format that represents each position in the genome with >0 counts, and the number of counts at that position.
+
+To convert into a bigWig file, ...
+
+
+Look at the mapped data using a genome browser
+----------------------------------------------
+
+Preference for IGV web start.
+
+
+Notes/ thoughts
+---------------
+
+Note that for tasks that you do all the time, it is much *much* better to have a pipeline set up that automates each of these steps. The PRO-seq, GRO-seq, and ChRO-seq pipeline that we use in my lab can be found here: 
+https://github.com/Danko-Lab/proseq2.0
+
+This program is essentially just a "shell script" which automates the commands that you just put in manually. To use it, you just execut a single command which takes in all of the information and provides the location of the BAM and bigWig files at the end. 
 
