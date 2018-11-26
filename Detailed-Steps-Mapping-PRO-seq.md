@@ -9,9 +9,9 @@ Finalize your BioHPC reservation
 --------------------------------
 
 Four of you had accounts. For those who did not, find the e-mail invitation from BioHPC (should have received this yesterday, Nov. 26th).
-<img align="left" src="etc\BioHPCpwd.png" width="200">
+<img align="left" src="etc\BioHPCpwd.png" width="600">
 
-
+<BR><BR>
 
 
 Log into the high performance compute server
