@@ -11,7 +11,11 @@ Finalize your BioHPC reservation
 Four of you had accounts. For those who did not, find the e-mail invitation from BioHPC (should have received this yesterday, Nov. 26th).
 <img align="left" src="etc\BioHPCpwd.png" width="600">
 
-<BR><BR>
+Fig. 1: E-mail from BioHPC. Select the link and set your password.
+
+User LabID is your netID. Please choose a password.
+
+<BR><BR><BR><BR><BR><BR>
 
 
 Log into the high performance compute server
@@ -23,7 +27,9 @@ An SSH clinet called "PuTTY" is installed on computers in B30B.
 
 * Select the Windows start menu and type "putty".
 
-* Under Hostname, enter the host name assinged to you (see the Power Point slide).
+* Under Hostname, enter the host name assinged to you (see the Power Point slide). For example: 
+
+``` cbsumm22.biohpc.cornell.edu ```
 
 * Select Open and enter your username (you netID) and your password.
 
