@@ -15,8 +15,7 @@ Fig. 1: E-mail from BioHPC. Select the link and set your password.
 
 User LabID is your netID. Please choose a password.
 
-<BR><BR><BR><BR><BR><BR>
-
+<BR><BR>
 
 Log into the high performance compute server
 --------------------------------------------
@@ -36,7 +35,17 @@ An SSH clinet called "PuTTY" is installed on computers in B30B.
 Hint: You can download PuTTY for your own computer from this URL: 
 ``` https://www.putty.org/ ```
 
+<BR><BR>
+
 Look at the raw data ChRO-seq data in fastq format
 --------------------------------------------------
 
-The next step is to use LINUX commands to navigate to the raw ChRO-seq data.
+The next step is to use LINUX commands to navigate to the raw ChRO-seq data. I have added this to /workdir/data. To get there and view the data, please enter the following commands: 
+
+``` 
+[dankoc@cbsumm22 data]$ cd /workdir/data
+[dankoc@cbsumm22 data]$ ls -lha
+total 12K
+drwxrwxr-x  2 dankoc dankoc    6 Nov 26 15:45 .
+drwxrwxrwx 12 root   root   8.0K Nov 26 15:45 ..
+```
