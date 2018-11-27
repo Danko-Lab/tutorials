@@ -589,7 +589,7 @@ Use the following commands:
 -rw-rw-r-- 1 dankoc dankoc 1.3G Nov 26 19:36 mm10.rRNA.fa.gz.sa
 ```
 
-Note the addition of five additional files, some of which are larger than the fastq file. These files are the index, representing the mouse genome in very effecient machine langugae. 
+Note that five additional files have appeared in this directory. Some of which are larger than the fastq file. These files are the index, representing the mouse genome in machine langugae that allows finding matching sequences very efficiently. 
 
 You will refer to this genome index in subsequent commands as "mm10.rRNA.fa.gz". Note that the fastq file is not a part of the index. You can now delete your private copy if you wish.
 
@@ -623,7 +623,7 @@ Next, align reads in the trimmed fastq.gz file to this mm10 reference genome:
 [main] Real time: 824.319 sec; CPU: 6761.728 sec
 ```
 
-And convert the resulting alignments (.bai format) into a more standard BAM format: 
+And convert the resulting alignments (.bai format) into a more standard SAM format: 
 
 ```
 [dankoc@cbsumm27 dankoc]$ bwa samse -n 1 -f LZ_R4.sam mm10.rRNA.fa.gz LZ_R4.sai LZ_R4.no-PCR-dups.no-Adapters.fastq.gz
@@ -653,7 +653,7 @@ Note that SAM files are human readable text files, and are therefore very ineffi
 ```
 [dankoc@cbsumm27 dankoc]$ samtools view -b -S LZ_R4.sam > LZ_R4.bam
 [dankoc@cbsumm27 dankoc]$ samtools sort -@ 10 LZ_R4.bam -o LZ_R4.sort.bam
-[bam_sort_core] merging from 10 files and 10 in-memory blocks...                                             |
+[bam_sort_core] merging from 10 files and 10 in-memory blocks...
 ```
 
 Notice how much larger the SAM file is than the BAMs: 
@@ -662,7 +662,7 @@ Notice how much larger the SAM file is than the BAMs:
 [dankoc@cbsumm27 dankoc]$ ls -lha *.bam
 -rw-rw-r-- 1 dankoc dankoc 1.9G Nov 27 12:34 LZ_R4.bam
 -rw-rw-r-- 1 dankoc dankoc 1.6G Nov 27 12:38 LZ_R4.sort.bam
-[dankoc@cbsumm27 dankoc]$ ls -lha *.sam                                                                      |
+[dankoc@cbsumm27 dankoc]$ ls -lha *.sam
 -rw-rw-r-- 1 dankoc dankoc 7.9G Nov 27 12:25 LZ_R4.sam
 ```
 
@@ -674,14 +674,26 @@ https://academic.oup.com/bioinformatics/article/25/14/1754/225615
 Convert BAM files into bigWig format
 ------------------------------------
 
-Much of what we will do tomorrow uses a more compact format, known as bigWig. BigWig is a binary format that represents each position in the genome with >0 counts, and the number of counts at that position. 
+Much of what we will do on Thursday uses a more compact format known as bigWig. BigWig is a binary format that represents each position in the genome with >0 counts, and the number of counts at that position. 
 
-Several steps To convert into a bigWig file, ...
+There are several steps to convert a BAM file into bigWig format.
+
+First, write out a BED file.
 
 ```
 [dankoc@cbsumm27 dankoc]$ bedtools bamtobed -i LZ_R4.sort.bam | awk 'BEGIN{OFS="\t"} ($5 > 20){print $0}' | grep -v "rRNA" | \
  awk 'BEGIN{OFS="\t"} ($6 == "+") {print $1,$2,$2+1,$4,$5,$6}; ($6 == "-") {print $1,$3-1,$3,$4,$5,$6}' | gzip > LZ_R4.bed.gz
 ```
+
+Note that this command uses awk. Awk is a programming language that allows some very fast operations on text without writing to disk. Instead, it operates from a pipe (see here: https://www.geeksforgeeks.org/piping-in-unix-or-linux/). 
+
+The first awk statement ``` awk 'BEGIN{OFS="\t"} ($5 > 20){print $0}' ``` takes reads that pass a stringent alignment quality filter. Scores are in PHRED format (see here: https://en.wikipedia.org/wiki/Phred_quality_score), so 20 denotes <1% chance of error.
+
+The second statement ``` grep -v "rRNA" ``` removes Pol I transcripts that map to the Pol I transcription unit.
+
+The third statement is where most of the magic happens ``` awk 'BEGIN{OFS="\t"} ($6 == "+") {print $1,$2,$2+1,$4,$5,$6}; ($6 == "-") {print $1,$3-1,$3,$4,$5,$6}' ```. 
+
+Note that we take only a single position. Run-On and sequencing methods map the location of the RNA polymerase, in many cases at nearly single nucleotide resolution. Therefore, it is logical to represent the coordinate of RNA polymerase using the genomic position that best represents the polymerase location, rather than representing the entire read. leChRO-seq measures the location in which RNA emerges from the polymerase exit channel at appxoimately single nucleotide resolution. We therefore represent this position using the 5' end of the mapped read.
 
 Next, count the number of reads starting in each position. This is done using the genomecov command in the bedtools suite.
 
@@ -690,7 +702,7 @@ Next, count the number of reads starting in each position. This is done using th
 [dankoc@cbsumm27 dankoc]$ bedtools genomecov -bg -i LZ_R4.bed.gz -g /workdir/data/mm10.chromInfo -strand - > LZ_R4_minus.bedGraph
 ```
 
-Note that a new file is required as input (mm10.chromInfo). This file representes the size of every chromosome in the mouse genome. It's human readable. Have a look at what's inside using "cat /workdir/data/mm10.chromInfo"!
+Note that a new file is required as input (mm10.chromInfo). This file representes the size of every chromosome in the mouse genome. It's human readable. Have a look at what's inside using ``` cat /workdir/data/mm10.chromInfo ```.
 
 Also notice that this line is run twice in order to split off reads mapping to + and - strand. Remember that leChRO-seq resolves the strand onto which RNA polymerase is engaged, and we need to capture that information when we are analyzing the data.
 
