@@ -596,13 +596,30 @@ You will refer to this genome index in subsequent commands as "mm10.rRNA.fa.gz".
 Next, align reads in the trimmed fastq.gz file to this mm10 reference genome: 
 
 ```
-bwa aln
+[dankoc@cbsumm27 dankoc]$ bwa aln -t 10 mm10.rRNA.fa.gz LZ_R4.no-PCR-dups.no-Adapters.fastq.gz > LZ_R4.sai
+[bwa_aln] 17bp reads: max_diff = 2
+[bwa_aln] 38bp reads: max_diff = 3
+[bwa_aln] 64bp reads: max_diff = 4
+[bwa_aln] 93bp reads: max_diff = 5
+[bwa_aln] 124bp reads: max_diff = 6
+[bwa_aln] 157bp reads: max_diff = 7
+[bwa_aln] 190bp reads: max_diff = 8
+[bwa_aln] 225bp reads: max_diff = 9
+[bwa_aln_core] calculate SA coordinate... 43.04 sec
+[bwa_aln_core] write to the disk... 0.05 sec
+[bwa_aln_core] 262144 sequences have been processed.
+[bwa_aln_core] calculate SA coordinate... 44.20 sec
+[bwa_aln_core] write to the disk... 0.05 sec
+[bwa_aln_core] 524288 sequences have been processed.
+...
 ```
 
 And convert the resulting alignments (.bai format) into a more standard BAM format: 
 
 ```
-bwa samse
+bwa samse -n 1 -f LZ_R4.sam mm10.rRNA.fa.gz LZ_R4.sai LZ_R4.no-PCR-dups.no-Adapters.fastq.gz
+samtools view -b -S LZ_R4.sam > LZ_R4.bam
+samtools sort -@ 10 LZ_R4.bam -o LZ_R4.sort.bam
 ```
 
 The BAM file represents the location of reads that map to the reference genome. That's it - you've done it!
