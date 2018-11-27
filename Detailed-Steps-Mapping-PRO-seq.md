@@ -203,7 +203,25 @@ Input and filter stats:
         none
 ```
 
-That line should create a new .fastq.gz file in your working directory (mine is: /workdir/dankoc/).
+That line should create a new .fastq.gz file in your working directory (mine is: /workdir/dankoc/). It also created a text file, pcr_dups.txt, which contains information about how many PCR duplicates were identified and removed: 
+
+```
+[dankoc@cbsumm27 dankoc]$ cat pcr_dups.txt
+Input and filter stats:
+        Input sequences: 47,534,859
+        Input bases: 3,612,649,284
+        Input mean length: 76.00
+        Good sequences: 42,740,174 (89.91%)
+        Good bases: 3,248,253,224
+        Good mean length: 76.00
+        Bad sequences: 4,794,685 (10.09%)
+        Bad bases: 364,396,060
+        Bad mean length: 76.00
+        Sequences filtered by specified parameters:
+        derep: 4794685
+```
+
+The output fastq file (LZ_R4.no-PCR-dups.fastq.gz) can be used in the next step!
 
 Trim adapters
 -------------
