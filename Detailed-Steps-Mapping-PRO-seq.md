@@ -1,7 +1,13 @@
-Detailed protocol for mapping PRO-seq, GRO-seq, and ChRO-seq data.
-==================================================================
+BioMG 7810 practical. Day 1 - Mapping PRO-seq, GRO-seq, and ChRO-seq data.
+==========================================================================
 
 Global Run-On and Sequencing (GRO-seq), Precision Run-On and Sequencing (PRO-seq), and Chromatin Run-On and Sequencing are technologies for mapping the location and orientation of actively transcribing RNA polymerase I, II, and III (Pol) across the genome.  All Run-on technologies provide a genome-wide readout of gene and lincRNA transcription, as well as the location and relative activities of active enhancers and promoters that regulate gene expression.
+
+Learning goals
+--------------
+
+* Get comfortable in a LINUX command line environement.
+* 
 
 Finalize your BioHPC reservation
 --------------------------------
@@ -37,27 +43,73 @@ Look at the raw data ChRO-seq data in fastq format
 The next step is to use LINUX commands to navigate to the raw ChRO-seq data. I have added this to /workdir/data. To get there and view the data, please enter the following commands: 
 
 ``` 
-[dankoc@cbsumm22 data]$ cd /workdir/data/fastq
-[dankoc@cbsumm22 data]$ ls -lha
-total 12K
-drwxrwxr-x  2 dankoc dankoc    6 Nov 26 15:45 .
-drwxrwxrwx 12 root   root   8.0K Nov 26 15:45 ..
+[dankoc@cbsumm22 ~]$ cd /workdir/data/fastq
+[dankoc@cbsumm22 fastq]$ ls -lha
+total 1.9G
+drwxrwxr-x 2 dankoc dankoc   35 Nov 26 19:05 .
+drwxrwxr-x 4 dankoc dankoc   41 Nov 26 18:32 ..
+-rw-rw-r-- 1 dankoc dankoc 1.9G Nov 26 19:06 LZ_R4.fastq.gz
 ```
 
 New look into the fastq file using the "zless" LINUX command: 
 
 ```
-zless 
+[dankoc@cbsumm22 fastq]$ zless LZ_R4.fastq.gz
 ```
 
-That shows you the raw data! Those DNA sequences should be similar to the mouse genome. To check this out, align them using BLAT: 
+This opens a window which shows you the raw data!
+
+```
+@NS500503:579:HTMFNBGX3:1:11101:7482:1050 1:N:0:GATCAG
+CGGGANGGTGACTGCAATGACATGCTGTTGGAATTCTCGGGTGCCAAGGAACTCCAGTCACGATCAGATCTCGTAT
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEEEEEEEEEEAEEEEEEE6EEEEEE
+@NS500503:579:HTMFNBGX3:1:11101:7717:1050 1:N:0:GATCAG
+GTTAGNAAAGCAGGAGGATTATTTTTGGTAGCCTACTTAAATTCATGTTTTGCTTAGGTAACCATACAGTTGAGTG
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEA
+@NS500503:579:HTMFNBGX3:1:11101:17223:1050 1:N:0:GATCAG
+CGAGANACATATGTGCTATGGCATGGAATTCTCGGGTGCCAAGGAACTCCAGTCACGATCAGATCTCGTATGCCGT
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEEEEEEEE/EEEEEEEEEEEEEEAEEE<EEEEEEEEE6E
+@NS500503:579:HTMFNBGX3:1:11101:18540:1052 1:N:0:GATCAG
+CATAGNATAACCTATGCGTGACTCTCAGCACAGTGAATTTTGTTTGGAATTCTCGGGTGCCAAGGAACTCCAGTCA
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAAAE
+@NS500503:579:HTMFNBGX3:1:11101:20114:1052 1:N:0:GATCAG
+GGCTTNAGGTGCTCTGGTCCTTCCTCCAGTGTGTATGCTGGAATTCTCGGGTGCCAAGGAACTCCAGTCACGATCA
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEAEEEEEEEEEEEAEEEEEEEEEEA
+@NS500503:579:HTMFNBGX3:1:11101:5639:1052 1:N:0:GATCAG
+CCCTGNCGAGCAAGCCGGGACATAAGCCAGGGACGGGGGAATTGGAATTCTCGGGTGCCAAGGAACTCCAGTCACG
++
+AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE<
+...
+```
+
+Note that you can press the space bar to see another window full of data. It would take you hours to browser the entire file.
+
+Those DNA sequences should be similar to the mouse genome. To check this out, align them using BLAT: 
 https://genome.ucsc.edu/cgi-bin/hgBlat
 
 Be sure to change the genome to "mouse".
 
+The second read is a good example: 
+<img align="left" src="etc\BLAT1.png" width="450">
+<img align="left" src="etc\BLAT2.png" width="400">
+
 Notice that while some of the reads map, many don't map as-is. Why do you think this might be?
 
 To check the QC on these fastq files using the software program fastqc.
+
+Note that this program will write a summary of the fastq qualities. You need to put this summary in a directory that we can write to. Permissions in LINUX frequently do not allow writing to directories with shared information (nor should they!). Create a working directory: 
+
+```
+[dankoc@cbsumm27 workdir]$ mkdir /workdir/dankoc
+[dankoc@cbsumm27 workdir]$ cd /workdir/dankoc/
+```
+
+Then run fastqc:
 
 ```
 fastqc $INPUT.fastq.gz
@@ -113,7 +165,9 @@ To make cutadapt work, we need to specify the:
 * Adapter sequence (-a ADAPTER)
 * Output file (-o output.fastq)
 
+
 Run this as follows: 
+
 ```
 [dankoc@cbsumm22 data]$ cutadapt
 
@@ -160,13 +214,15 @@ Note: To use BWA, you need to first index the genome with `bwa index'.
 
 Note that BWA works in two steps. First, we need to generate a compressed file that represents the mouse genome using very efficient machine language. I have placed a text copy of the mouse reference genome (version mm10) here: /workdir/mm10/mm10.fa
 
-To do this, use bwa index: 
+To do this, go to a directory that you can write to and create the index using bwa index: 
 
 ```
-bwa index
+[dankoc@cbsumm27 mm10]$ cd /workdir/dankoc
+[dankoc@cbsumm27 dankoc]$ bwa index /workdir/data/mm10/mm10.rRNA.fa.gz
+
 ```
 
-Next, align reads to this mm10 reference genome: 
+Next, align reads in the trimmed fastq.gz file to this mm10 reference genome: 
 
 ```
 bwa aln
