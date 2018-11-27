@@ -235,7 +235,78 @@ To do this, go to a directory that you can write to and create the index using b
 ```
 [dankoc@cbsumm27 mm10]$ cd /workdir/dankoc
 [dankoc@cbsumm27 dankoc]$ bwa index /workdir/data/mm10/mm10.rRNA.fa.gz
-
+[bwa_index] Pack FASTA... 32.40 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=5461829546, availableWord=396314452
+[BWTIncConstructFromPacked] 10 iterations done. 99999994 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 199999994 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 299999994 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 399999994 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 499999994 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 599999994 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 699999994 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 799999994 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 899999994 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 999999994 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 1099999994 characters processed.
+[BWTIncConstructFromPacked] 120 iterations done. 1199999994 characters processed.
+[BWTIncConstructFromPacked] 130 iterations done. 1299999994 characters processed.
+[BWTIncConstructFromPacked] 140 iterations done. 1399999994 characters processed.
+[BWTIncConstructFromPacked] 150 iterations done. 1499999994 characters processed.
+[BWTIncConstructFromPacked] 160 iterations done. 1599999994 characters processed.
+[BWTIncConstructFromPacked] 170 iterations done. 1699999994 characters processed.
+[BWTIncConstructFromPacked] 180 iterations done. 1799999994 characters processed.
+[BWTIncConstructFromPacked] 190 iterations done. 1899999994 characters processed.
+[BWTIncConstructFromPacked] 200 iterations done. 1999999994 characters processed.
+[BWTIncConstructFromPacked] 210 iterations done. 2099999994 characters processed.
+[BWTIncConstructFromPacked] 220 iterations done. 2199999994 characters processed.
+[BWTIncConstructFromPacked] 230 iterations done. 2299999994 characters processed.
+[BWTIncConstructFromPacked] 240 iterations done. 2399999994 characters processed.
+[BWTIncConstructFromPacked] 250 iterations done. 2499999994 characters processed.
+[BWTIncConstructFromPacked] 260 iterations done. 2599999994 characters processed.
+[BWTIncConstructFromPacked] 270 iterations done. 2699999994 characters processed.
+[BWTIncConstructFromPacked] 280 iterations done. 2799999994 characters processed.
+[BWTIncConstructFromPacked] 290 iterations done. 2899999994 characters processed.
+[BWTIncConstructFromPacked] 300 iterations done. 2999999994 characters processed.
+[BWTIncConstructFromPacked] 310 iterations done. 3099999994 characters processed.
+[BWTIncConstructFromPacked] 320 iterations done. 3199999994 characters processed.
+[BWTIncConstructFromPacked] 330 iterations done. 3299999994 characters processed.
+[BWTIncConstructFromPacked] 340 iterations done. 3399999994 characters processed.
+[BWTIncConstructFromPacked] 350 iterations done. 3499999994 characters processed.
+[BWTIncConstructFromPacked] 360 iterations done. 3599999994 characters processed.
+[BWTIncConstructFromPacked] 370 iterations done. 3699999994 characters processed.
+[BWTIncConstructFromPacked] 380 iterations done. 3799999994 characters processed.
+[BWTIncConstructFromPacked] 390 iterations done. 3899999994 characters processed.
+[BWTIncConstructFromPacked] 400 iterations done. 3999999994 characters processed.
+[BWTIncConstructFromPacked] 410 iterations done. 4099999994 characters processed.
+[BWTIncConstructFromPacked] 420 iterations done. 4199999994 characters processed.
+[BWTIncConstructFromPacked] 430 iterations done. 4299999994 characters processed.
+[BWTIncConstructFromPacked] 440 iterations done. 4399999994 characters processed.
+[BWTIncConstructFromPacked] 450 iterations done. 4499999994 characters processed.
+[BWTIncConstructFromPacked] 460 iterations done. 4599999994 characters processed.
+[BWTIncConstructFromPacked] 470 iterations done. 4699999994 characters processed.
+[BWTIncConstructFromPacked] 480 iterations done. 4799899178 characters processed.
+[BWTIncConstructFromPacked] 490 iterations done. 4892727610 characters processed.
+[BWTIncConstructFromPacked] 500 iterations done. 4975229770 characters processed.
+[BWTIncConstructFromPacked] 510 iterations done. 5048553898 characters processed.
+[BWTIncConstructFromPacked] 520 iterations done. 5113720554 characters processed.
+[BWTIncConstructFromPacked] 530 iterations done. 5171636842 characters processed.
+[BWTIncConstructFromPacked] 540 iterations done. 5223108954 characters processed.
+[BWTIncConstructFromPacked] 550 iterations done. 5268853482 characters processed.
+[BWTIncConstructFromPacked] 560 iterations done. 5309507322 characters processed.
+[BWTIncConstructFromPacked] 570 iterations done. 5345636538 characters processed.
+[BWTIncConstructFromPacked] 580 iterations done. 5377744234 characters processed.
+[BWTIncConstructFromPacked] 590 iterations done. 5406277626 characters processed.
+[BWTIncConstructFromPacked] 600 iterations done. 5431634122 characters processed.
+[BWTIncConstructFromPacked] 610 iterations done. 5454167018 characters processed.
+[bwt_gen] Finished constructing BWT in 614 iterations.
+[bwa_index] 2339.11 seconds elapse.
+[bwa_index] Update BWT... 15.82 sec
+[bwa_index] Pack forward-only FASTA... 24.65 sec
+[bwa_index] Construct SA from BWT and Occ... 774.60 sec
+[main] Version: 0.7.13-r1126
+[main] CMD: bwa index /workdir/data/mm10/mm10.rRNA.fa.gz
+[main] Real time: 3192.431 sec; CPU: 3186.585 sec
 ```
 
 Next, align reads in the trimmed fastq.gz file to this mm10 reference genome: 
