@@ -1,5 +1,5 @@
-BioMG 7810 practical. Day 1 - Mapping PRO-seq, GRO-seq, and ChRO-seq data.
-==========================================================================
+BioMG 7810 practical day 1: Mapping PRO-seq, GRO-seq, and ChRO-seq data.
+========================================================================
 
 Global Run-On and Sequencing (GRO-seq), Precision Run-On and Sequencing (PRO-seq), and Chromatin Run-On and Sequencing are technologies for mapping the location and orientation of actively transcribing RNA polymerase I, II, and III (Pol) across the genome.  All Run-on technologies provide a genome-wide readout of gene and lincRNA transcription, as well as the location and relative activities of active enhancers and promoters that regulate gene expression.
 
@@ -7,7 +7,8 @@ Learning goals
 --------------
 
 * Get comfortable in a LINUX command line environement.
-* 
+* Practice mapping ChRO-seq data to a reference genome.
+* Understand *WHY* we preform each step.
 
 Finalize your BioHPC reservation
 --------------------------------
@@ -30,7 +31,9 @@ An SSH clinet called "PuTTY" is installed on computers in B30B.
 
 * Under Hostname, enter the host name assinged to you (see the Power Point slide). For example: 
 
-``` cbsumm22.biohpc.cornell.edu ```
+```
+cbsumm22.biohpc.cornell.edu
+```
 
 * Select Open and enter your username (you netID) and your password.
 
@@ -98,7 +101,14 @@ The second read is a good example:
 <img align="left" src="etc\BLAT1.png" width="900">
 <img align="left" src="etc\BLAT2.png" width="900">
 
-Notice that while some of the reads map, many don't map as-is. Why do you think this might be?
+Notice that while some of the reads map, many don't map as-is. Moreover, manual inspection shows you two aspects of read mapping: 
+* First, most reads start mapping at position 7 in the read.
+* Second, many reads map only the 5' portion of the read.
+
+What is your explanation?
+
+Quality control reads
+---------------------
 
 To check the QC on these fastq files using the software program fastqc.
 
@@ -118,6 +128,12 @@ fastqc $INPUT.fastq.gz
 Download those files using filezilla, and open the window. It will looks something like this: 
 
 Notice that many of the reads are contaminated with Illumina adapter! This indicates a short insert size in the input data. This is typical of ChRO-seq data, and many other types of short read data as well. We will need remove these before proceeding.
+
+Demultiplex PCR duplicates
+--------------------------
+
+Something...
+
 
 Trim adapters
 -------------
