@@ -37,6 +37,13 @@ cbsumm22.biohpc.cornell.edu
 
 * Select Open and enter your username (you netID) and your password.
 
+Server assignments are: 
+cbsumm22	apb248 mc2698 agc94 ad986
+cbsumm23	yj386 chk63 mgl77 mip25
+cbsumm26	is372 mvs44 ldw64 mjg75
+cbsumm27	kmw264 yx438 hz543
+
+
 Hint: You can download PuTTY for your own computer from this URL: 
 ``` https://www.putty.org/ ```
 
