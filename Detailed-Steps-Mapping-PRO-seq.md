@@ -708,7 +708,13 @@ Note: BED, bedGraph, and bigWig are all standard file formats in bioinformatics.
 Look at the mapped data using a genome browser
 ----------------------------------------------
 
-Preference for IGV web start.
+Viewing mapped reads on a genome browser is the most informative way to determine many features of an experiment, and should be the first analysis after read mapping. Please try to view the bigWig fies that you generated using a genome browser. 
+
+I suggest starting with IGV. Download the IGV genome browser here: http://software.broadinstitute.org/software/igv/home, and follow the instructions to make it run.
+
+Download your bigWig files using filezilla, or another SFTP client of your choice. Once you have bigWig files downloaded, you can just drag and drop them into IGV. 
+
+Look in particular at the pattern of RNA polymerase on genes. We will pick up the discussion here on Thursday. 
 
 
 Notes/ thoughts
