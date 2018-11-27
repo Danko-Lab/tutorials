@@ -653,6 +653,17 @@ Note that SAM files are human readable text files, and are therefore very ineffi
 ```
 [dankoc@cbsumm27 dankoc]$ samtools view -b -S LZ_R4.sam > LZ_R4.bam
 [dankoc@cbsumm27 dankoc]$ samtools sort -@ 10 LZ_R4.bam -o LZ_R4.sort.bam
+[bam_sort_core] merging from 10 files and 10 in-memory blocks...                                             |
+```
+
+Notice how much larger the SAM file is than the BAMs: 
+
+```
+[dankoc@cbsumm27 dankoc]$ ls -lha *.bam
+-rw-rw-r-- 1 dankoc dankoc 1.9G Nov 27 12:34 LZ_R4.bam
+-rw-rw-r-- 1 dankoc dankoc 1.6G Nov 27 12:38 LZ_R4.sort.bam
+[dankoc@cbsumm27 dankoc]$ ls -lha *.sam                                                                      |
+-rw-rw-r-- 1 dankoc dankoc 7.9G Nov 27 12:25 LZ_R4.sam
 ```
 
 The BAM file represents the location of reads that map to the reference genome. That's it - you've done it!
@@ -668,35 +679,31 @@ Much of what we will do tomorrow uses a more compact format, known as bigWig. Bi
 Several steps To convert into a bigWig file, ...
 
 ```
-bedtools bamtobed -i LZ_R4.sort.bam | awk 'BEGIN{OFS="\t"} ($5 > 20){print $0}' | grep -v "rRNA" | \
+[dankoc@cbsumm27 dankoc]$ bedtools bamtobed -i LZ_R4.sort.bam | awk 'BEGIN{OFS="\t"} ($5 > 20){print $0}' | grep -v "rRNA" | \
  awk 'BEGIN{OFS="\t"} ($6 == "+") {print $1,$2,$2+1,$4,$5,$6}; ($6 == "-") {print $1,$3-1,$3,$4,$5,$6}' | gzip > LZ_R4.bed.gz
 ```
 
 Next, count the number of reads starting in each position. This is done using the genomecov command in the bedtools suite.
 
 ```
-bedtools genomecov -bg -i LZ_R4.bed.gz -g ${CHINFO} -strand + > ${TMPDIR}/$j\_plus.bedGraph
-bedtools genomecov -bg -i LZ_R4.bed.gz -g ${CHINFO} -strand - > ${TMPDIR}/$j\_minus.noinv.bedGraph
+[dankoc@cbsumm27 dankoc]$ bedtools genomecov -bg -i LZ_R4.bed.gz -g /workdir/data/mm10.chromInfo -strand + > LZ_R4_plus.bedGraph
+[dankoc@cbsumm27 dankoc]$ bedtools genomecov -bg -i LZ_R4.bed.gz -g /workdir/data/mm10.chromInfo -strand - > LZ_R4_minus.bedGraph
 ```
 
-Note that a new file is required as input (mm10.chromInfo). 
+Note that a new file is required as input (mm10.chromInfo). This file representes the size of every chromosome in the mouse genome. It's human readable. Have a look at what's inside using "cat /workdir/data/mm10.chromInfo"!
 
-Note that this line is run twice in order to splits off reads mapping to + and - strand. Remember that leChRO-seq resolves the strand onto which RNA polymerase is engaged.
+Also notice that this line is run twice in order to split off reads mapping to + and - strand. Remember that leChRO-seq resolves the strand onto which RNA polymerase is engaged, and we need to capture that information when we are analyzing the data.
 
-Finally, we convert these bedGraph files into the bigWig format. There is not much difference in what kind of data is represented between these files, only in how it is represented. BigWig files store an index that allows a computer program to request data from just a portion of the genome without read the entire file. This speeds up some analyses.
+The final step is to convert these bedGraph files into the bigWig format. There is not much difference in what kind of data is represented between these files, only in how it is represented. BigWig files store an index that allows a computer program to request data from just a portion of the genome without read the entire file. This speeds up some analyses.
 
 The conversion to bigWig is done using the bedGraphToBigWig program, one of the Kent Source utilities written by authors of the UCSC genome browser.
 
 ```
-
-## Then to bigWig
-bedGraphToBigWig ${TMPDIR}/$j\_plus.sorted.bedGraph ${CHINFO} ${OUTPUT}/$j\_plus.bw
-bedGraphToBigWig ${TMPDIR}/$j\_minus.sorted.bedGraph ${CHINFO} ${OUTPUT}/$j\_minus.bw
-
+[dankoc@cbsumm27 dankoc]$ /workdir/data/bedGraphToBigWig LZ_R4_plus.bedGraph /workdir/data/mm10.chromInfo LZ_R4_plus.bw
+[dankoc@cbsumm27 dankoc]$ /workdir/data/bedGraphToBigWig LZ_R4_minus.bedGraph /workdir/data/mm10.chromInfo LZ_R4_minus.bw
 ```
 
-
-Note: Each of these is a standard file format in bioinformatics. This is a great resource for learning about these file formats: https://genome.ucsc.edu/FAQ/FAQformat.html
+Note: BED, bedGraph, and bigWig are all standard file formats in bioinformatics. A great resource for learning about these file formats can be found here: https://genome.ucsc.edu/FAQ/FAQformat.html
 
 Look at the mapped data using a genome browser
 ----------------------------------------------
