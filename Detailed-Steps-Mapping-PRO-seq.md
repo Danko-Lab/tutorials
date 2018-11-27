@@ -152,7 +152,19 @@ Approx 95% complete for LZ_R4.fastq.gz
 Analysis complete for LZ_R4.fastq.gz
 ```
 
-Download those files using filezilla, and open the window. It will looks something like this: 
+To see the fastqc analysis, download those files using filezilla. Select start, type filezilla, and set filezilla to connect to your assigned server. Note that you have to use the protocol SFTP. 
+
+When you view the fastqc file, it will looks something like this: 
+
+<img align="left" src="etc\FastQC.png" width="900">
+
+The base qualities represented in that graph look excellent (our sequencing core typically does a nice job). 
+
+Scroll down and note the fraction of reads contaminated with adapters: 
+
+<img align="left" src="etc\FastQC-ac.png" width="900">
+
+A lot of PRO-seq-type data looks like this. There's a lot of relatively shoter inserts in the library, and Illumina NextSeq500 has a very strong bias for shorter fragments. Whatever you think your insert size distribution looks like, Illumina will sequence the shorter fragments first!
 
 Notice that many of the reads are contaminated with Illumina adapter! This indicates a short insert size in the input data. This is typical of ChRO-seq data, and many other types of short read data as well. We will need remove these before proceeding.
 
