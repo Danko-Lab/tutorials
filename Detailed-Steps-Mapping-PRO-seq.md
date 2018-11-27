@@ -183,20 +183,34 @@ First, you have to copy prinseq-lite.pl into your working directory.
 cp /workdir/data/prinseq-lite.pl /workdir/dankoc/
 ```
 
-Then, you can use the various prinseq-lite options to preform the demultiplexing, and trim off the first 6 bases from the read. Note that what follows is a complicated line.
+Then, you can use the various prinseq-lite options to preform the demultiplexing, and trim off the first 6 bases from the read. 
+
+Note that what follows is a complicated set of instructions. This program is a bit archaic, so I'm not going to go into much detail explaining this line. If you don't understand this in detail, don't fret! There's better examples coming that you should be better equipped to understand in their entirety. 
 
 ```
 cd /workdir/dankoc
 zcat /workdir/data/fastq/LZ_R4.fastq.gz | ./prinseq-lite.pl -derep 1 -fastq stdin -out_format 3 -out_good stdout -out_bad null 2> /workdir/dankoc/pcr_dups.txt | \
-	./prinseq-lite.pl -trim_left 6 -fastq stdin -out_format 3 -out_good stdout -out_bad null -min_len 15 | gzip > /workdir/dankoc/LZ_R4.no-PCR-dups.fastq.gz  
+	./prinseq-lite.pl -trim_left 6 -fastq stdin -out_format 3 -out_good stdout -out_bad null -min_len 15 | gzip > /workdir/dankoc/LZ_R4.no-PCR-dups.fastq.gz 
+Input and filter stats:
+        Input sequences: 42,740,174
+        Input bases: 3,248,253,224
+        Input mean length: 76.00
+        Good sequences: 42,740,174 (100.00%)
+        Good bases: 2,991,812,180
+        Good mean length: 70.00
+        Bad sequences: 0 (0.00%)
+        Sequences filtered by specified parameters:
+        none
 ```
 
-That line should create a new .fastq.gz file in /workdir/dankoc/.
+That line should create a new .fastq.gz file in your working directory (mine is: /workdir/dankoc/).
 
 Trim adapters
 -------------
 
-We will trim adapters using the software program "cutadapt". To see how to use this program, call the program without any options: 
+Our next goal is to trim adapters, and leaving all non-adapter sequence untouched. We will trim adapters using the software program "cutadapt". 
+
+To see how to use this program, call the program without any options: 
 
 ```
 [dankoc@cbsumm22 data]$ cutadapt
@@ -243,8 +257,21 @@ To make cutadapt work, we need to specify the:
 Run this as follows: 
 
 ```
-[dankoc@cbsumm22 data]$ cutadapt -a TGGAATTCTCGGGTGCCAAGG -z -e 0.10 --minimum-length=15 --output=${TMPDIR}/noadapt/$name.na.fastq.gz $fastq
+[dankoc@cbsumm22 data]$ cutadapt -a TGGAATTCTCGGGTGCCAAGG -z -e 0.10 --minimum-length=15 --output=LZ_R4.no-PCR-dups.no-Adapters.fastq.gz LZ_R4.no-PCR-dups.fastq.gz
+This is cutadapt 1.16 with Python 3.6.1
+Command line parameters: -a TGGAATTCTCGGGTGCCAAGG -z -e 0.10 --minimum-length=15 --output=LZ_R4.no-PCR-dups.no-Adapters.fastq.gz LZ_R4.no-PCR-dups.fastq.gz
+Running on 1 core
+Trimming 1 adapter with at most 10.0% errors in single-end mode ...
+
 ```
+
+This produces a new fastq.gz file in your working directory (LZ_R4.no-PCR-dups.no-Adapters.fastq.gz). Look at this file using zless, and you'll see that reads are all sorts of different lengths. 
+
+```
+Insert ...
+```
+
+This has trimmed off the adapter sequence, leaving only the insert. It's now ready to align! Nice!
 
 Map short reads to the mouse genome
 -----------------------------------
