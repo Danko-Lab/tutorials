@@ -125,6 +125,8 @@ Note that this program will write a summary of the fastq qualities. You need to 
 [dankoc@cbsumm27 workdir]$ cd /workdir/dankoc/
 ```
 
+Note: instead of using /workdir/dankoc/ you should name the directory /workdir/{your netID}/. Make sure to change the commands throughout to write to your own folder instead of dankoc!!
+
 Then run fastqc:
 
 ```
@@ -152,7 +154,9 @@ Approx 95% complete for LZ_R4.fastq.gz
 Analysis complete for LZ_R4.fastq.gz
 ```
 
-To see the fastqc analysis, download those files using filezilla. Select start, type filezilla, and set filezilla to connect to your assigned server. Note that you have to use the protocol SFTP. 
+To see the fastqc analysis, download those files using a secure file transfer protocol (SFTP) clinet. The client "filezilla" is on the computers in Mann Library B30B. Select start, type filezilla, and set filezilla to connect to your assigned server. Note that you have to use the SFTP protocol. 
+
+Note also that I have not yet gone to Mann library to try this step.
 
 When you view the fastqc file, it will looks something like this: 
 
@@ -164,15 +168,30 @@ Scroll down and note the fraction of reads contaminated with adapters:
 
 <img align="left" src="etc\FastQC-ac.png" width="900">
 
-A lot of PRO-seq-type data looks like this. There's a lot of relatively shoter inserts in the library, and Illumina NextSeq500 has a very strong bias for shorter fragments. Whatever you think your insert size distribution looks like, Illumina will sequence the shorter fragments first!
+A lot of PRO-seq-type data (and other short read data too) looks like this. There's a lot of relatively shoter inserts in the library, and Illumina NextSeq500 has a very strong bias for shorter fragments. Whatever you think your insert size distribution looks like, Illumina will sequence the shorter fragments first!
 
-Notice that many of the reads are contaminated with Illumina adapter! This indicates a short insert size in the input data. This is typical of ChRO-seq data, and many other types of short read data as well. We will need remove these before proceeding.
+Therefore we will have to trim adapters. Note that if we did not already know what sequence to trim, we could use the adapter identified by fastqc!
 
 Demultiplex PCR duplicates
 --------------------------
 
-Something...
+The first step in processing ChRO-seq data is to demultiplex PCR duplicates. I demultiplex using prinseq-lite.pl.
 
+First, you have to copy prinseq-lite.pl into your working directory.
+
+```
+cp /workdir/data/prinseq-lite.pl /workdir/dankoc/
+```
+
+Then, you can use the various prinseq-lite options to preform the demultiplexing, and trim off the first 6 bases from the read. Note that what follows is a complicated line.
+
+```
+cd /workdir/dankoc
+zcat /workdir/data/fastq/LZ_R4.fastq.gz | ./prinseq-lite.pl -derep 1 -fastq stdin -out_format 3 -out_good stdout -out_bad null 2> /workdir/dankoc/pcr_dups.txt | \
+	./prinseq-lite.pl -trim_left 6 -fastq stdin -out_format 3 -out_good stdout -out_bad null -min_len 15 | gzip > /workdir/dankoc/LZ_R4.no-PCR-dups.fastq.gz  
+```
+
+That line should create a new .fastq.gz file in /workdir/dankoc/.
 
 Trim adapters
 -------------
@@ -224,8 +243,7 @@ To make cutadapt work, we need to specify the:
 Run this as follows: 
 
 ```
-[dankoc@cbsumm22 data]$ cutadapt
-
+[dankoc@cbsumm22 data]$ cutadapt -a TGGAATTCTCGGGTGCCAAGG -z -e 0.10 --minimum-length=15 --output=${TMPDIR}/noadapt/$name.na.fastq.gz $fastq
 ```
 
 Map short reads to the mouse genome
