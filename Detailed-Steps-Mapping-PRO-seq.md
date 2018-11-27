@@ -29,20 +29,20 @@ An SSH clinet called "PuTTY" is installed on computers in B30B.
 
 * Select the Windows start menu and type "putty".
 
-* Under Hostname, enter the host name assinged to you (see the Power Point slide). For example: 
-
-```
-cbsumm22.biohpc.cornell.edu
-```
+* Under Hostname, enter the host name assinged to you (see the table below), followed by .biohpc.cornell.edu 
 
 * Select Open and enter your username (you netID) and your password.
 
-Server assignments are: 
-cbsumm22	apb248 mc2698 agc94 ad986
-cbsumm23	yj386 chk63 mgl77 mip25
-cbsumm26	is372 mvs44 ldw64 mjg75
-cbsumm27	kmw264 yx438 hz543
+Server assignments are:  <BR>
+cbsumm22:	apb248 mc2698 agc94 ad986 <BR>
+cbsumm23:	yj386 chk63 mgl77 mip25 <BR>
+cbsumm26:	is372 mvs44 ldw64 mjg75 <BR>
+cbsumm27:	kmw264 yx438 hz543 <BR>
 
+If you are assigned cbsumm22, for example, type: 
+```
+cbsumm22.biohpc.cornell.edu
+```
 
 Hint: You can download PuTTY for your own computer from this URL: 
 ``` https://www.putty.org/ ```
