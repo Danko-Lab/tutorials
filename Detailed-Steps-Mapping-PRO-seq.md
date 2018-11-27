@@ -640,11 +640,15 @@ And convert the resulting alignments (.bai format) into a more standard BAM form
 [bwa_aln_core] print alignments... 0.35 sec
 [bwa_aln_core] 786432 sequences have been processed.
 [bwa_aln_core] convert to sequence coordinate... 4.00 sec
+...
+[main] Version: 0.7.13-r1126                                                                                 
+[main] CMD: bwa samse -n 1 -f LZ_R4.sam mm10.rRNA.fa.gz LZ_R4.sai LZ_R4.no-PCR-dups.no-Adapters.fastq.gz     
+[main] Real time: 878.276 sec; CPU: 878.285 sec                                                              
 ```
 
 The output of this is a SAM file. See here for details on the SAM specification: https://en.wikipedia.org/wiki/SAM_(file_format)
 
-Note that SAM files are human readable text files, and are therefore very inefficient for long term storage. In the next step we will convert this SAM file into a machine-readable (but not human readable) file format called BAM. We will then sort the BAM file for downstream processing.
+Note that SAM files are human readable text files, and are therefore very inefficient for long term storage. In the next step we will convert this SAM file into a machine-readable (but not human readable) file format called BAM. We will then sort the BAM file for downstream processing. Both of these steps are completed using a program called samtools.
 
 ```
 [dankoc@cbsumm27 dankoc]$ samtools view -b -S LZ_R4.sam > LZ_R4.bam
@@ -659,10 +663,40 @@ https://academic.oup.com/bioinformatics/article/25/14/1754/225615
 Convert BAM files into bigWig format
 ------------------------------------
 
-Much of what we will do tomorrow uses a more compact format, known as bigWig. BigWig is a binary format that represents each position in the genome with >0 counts, and the number of counts at that position.
+Much of what we will do tomorrow uses a more compact format, known as bigWig. BigWig is a binary format that represents each position in the genome with >0 counts, and the number of counts at that position. 
 
-To convert into a bigWig file, ...
+Several steps To convert into a bigWig file, ...
 
+```
+bedtools bamtobed -i LZ_R4.sort.bam | awk 'BEGIN{OFS="\t"} ($5 > 20){print $0}' | grep -v "rRNA" | \
+ awk 'BEGIN{OFS="\t"} ($6 == "+") {print $1,$2,$2+1,$4,$5,$6}; ($6 == "-") {print $1,$3-1,$3,$4,$5,$6}' | gzip > LZ_R4.bed.gz
+```
+
+Next, count the number of reads starting in each position. This is done using the genomecov command in the bedtools suite.
+
+```
+bedtools genomecov -bg -i LZ_R4.bed.gz -g ${CHINFO} -strand + > ${TMPDIR}/$j\_plus.bedGraph
+bedtools genomecov -bg -i LZ_R4.bed.gz -g ${CHINFO} -strand - > ${TMPDIR}/$j\_minus.noinv.bedGraph
+```
+
+Note that a new file is required as input (mm10.chromInfo). 
+
+Note that this line is run twice in order to splits off reads mapping to + and - strand. Remember that leChRO-seq resolves the strand onto which RNA polymerase is engaged.
+
+Finally, we convert these bedGraph files into the bigWig format. There is not much difference in what kind of data is represented between these files, only in how it is represented. BigWig files store an index that allows a computer program to request data from just a portion of the genome without read the entire file. This speeds up some analyses.
+
+The conversion to bigWig is done using the bedGraphToBigWig program, one of the Kent Source utilities written by authors of the UCSC genome browser.
+
+```
+
+## Then to bigWig
+bedGraphToBigWig ${TMPDIR}/$j\_plus.sorted.bedGraph ${CHINFO} ${OUTPUT}/$j\_plus.bw
+bedGraphToBigWig ${TMPDIR}/$j\_minus.sorted.bedGraph ${CHINFO} ${OUTPUT}/$j\_minus.bw
+
+```
+
+
+Note: Each of these is a standard file format in bioinformatics. This is a great resource for learning about these file formats: https://genome.ucsc.edu/FAQ/FAQformat.html
 
 Look at the mapped data using a genome browser
 ----------------------------------------------
