@@ -18,7 +18,7 @@ Four of you had accounts. For those who did not, find the e-mail invitation from
 
 Fig. 1: E-mail from BioHPC. Select the link and set your password.
 
-User LabID is your netID. Please choose a password.
+User LabID is your netID. Please choose a password following the instructions on the web browser.
 
 Log into the high performance compute server
 --------------------------------------------
@@ -44,11 +44,10 @@ If you are assigned cbsumm22, for example, type:
 cbsumm22.biohpc.cornell.edu
 ```
 
-Hint: You can download PuTTY for your own computer from this URL: 
-``` https://www.putty.org/ ```
+Hint: You can download PuTTY for your own computer from this URL: https://www.putty.org/. If you have a Mac, you can use the command line utility. Look for tutorials online.
 
-Look at the raw data ChRO-seq data in fastq format
---------------------------------------------------
+Look at the raw ChRO-seq data in fastq format
+---------------------------------------------
 
 The next step is to use LINUX commands to navigate to the raw ChRO-seq data. I have added this to /workdir/data. To get there and view the data, please enter the following commands: 
 
@@ -67,7 +66,7 @@ New look into the fastq file using the "zless" LINUX command:
 [dankoc@cbsumm22 fastq]$ zless LZ_R4.fastq.gz
 ```
 
-This opens a window which shows you the raw data!
+This opens a window which shows you the raw data:
 
 ```
 @NS500503:579:HTMFNBGX3:1:11101:7482:1050 1:N:0:GATCAG
@@ -112,7 +111,7 @@ Notice that while some of the reads map, many don't map as-is. Moreover, manual 
 * First, most reads start mapping at position 7 in the read.
 * Second, many reads map only the 5' portion of the read.
 
-What is your explanation?
+Why do you think this is?
 
 Quality control reads
 ---------------------
@@ -129,7 +128,28 @@ Note that this program will write a summary of the fastq qualities. You need to 
 Then run fastqc:
 
 ```
-fastqc $INPUT.fastq.gz
+[dankoc@cbsumm27 dankoc]$ fastqc -o /workdir/dankoc /workdir/data/fastq/LZ_R4.fastq.gz
+Started analysis of LZ_R4.fastq.gz
+Approx 5% complete for LZ_R4.fastq.gz
+Approx 10% complete for LZ_R4.fastq.gz
+Approx 15% complete for LZ_R4.fastq.gz
+Approx 20% complete for LZ_R4.fastq.gz
+Approx 25% complete for LZ_R4.fastq.gz
+Approx 30% complete for LZ_R4.fastq.gz
+Approx 35% complete for LZ_R4.fastq.gz
+Approx 40% complete for LZ_R4.fastq.gz
+Approx 45% complete for LZ_R4.fastq.gz
+Approx 50% complete for LZ_R4.fastq.gz
+Approx 55% complete for LZ_R4.fastq.gz
+Approx 60% complete for LZ_R4.fastq.gz
+Approx 65% complete for LZ_R4.fastq.gz
+Approx 70% complete for LZ_R4.fastq.gz
+Approx 75% complete for LZ_R4.fastq.gz
+Approx 80% complete for LZ_R4.fastq.gz
+Approx 85% complete for LZ_R4.fastq.gz
+Approx 90% complete for LZ_R4.fastq.gz
+Approx 95% complete for LZ_R4.fastq.gz
+Analysis complete for LZ_R4.fastq.gz
 ```
 
 Download those files using filezilla, and open the window. It will looks something like this: 
@@ -235,11 +255,17 @@ Note: To use BWA, you need to first index the genome with `bwa index'.
 
 ```
 
-Note that BWA works in two steps. First, we need to generate a compressed file that represents the mouse genome using very efficient machine language. I have placed a text copy of the mouse reference genome (version mm10) here: /workdir/mm10/mm10.fa
+BWA works in two steps. First, we need to generate a compressed file that represents the mouse genome using very efficient machine language. This compressed representation of the genome is called an "index".
 
-To do this, go to a directory that you can write to and create the index using bwa index: 
+I have placed a text copy of the mouse reference genome (version mm10) here: /workdir/data/mm10/mm10.rRNA.fa.gz
+
+Note that BWA does not allow you to adjust the output directory of this file, so you have to copy it to your working directory where you have permission to write the index.
+
+Use the following commands: 
 
 ```
+[dankoc@cbsumm27 mm10]$ cd /workdir/data/mm10
+[dankoc@cbsumm27 mm10]$ cp mm10.rRNA.fa.gz /workdir/dankoc
 [dankoc@cbsumm27 mm10]$ cd /workdir/dankoc
 [dankoc@cbsumm27 dankoc]$ bwa index /workdir/data/mm10/mm10.rRNA.fa.gz
 [bwa_index] Pack FASTA... 32.40 sec
@@ -314,7 +340,18 @@ To do this, go to a directory that you can write to and create the index using b
 [main] Version: 0.7.13-r1126
 [main] CMD: bwa index /workdir/data/mm10/mm10.rRNA.fa.gz
 [main] Real time: 3192.431 sec; CPU: 3186.585 sec
+[dankoc@cbsumm27 dankoc]$ ls -lha mm10.rRNA.fa*
+-rw-rw-r-- 1 dankoc dankoc 830M Nov 26 18:36 mm10.rRNA.fa.gz
+-rw-rw-r-- 1 dankoc dankoc  12K Nov 26 19:23 mm10.rRNA.fa.gz.amb
+-rw-rw-r-- 1 dankoc dankoc 2.9K Nov 26 19:23 mm10.rRNA.fa.gz.ann
+-rw-rw-r-- 1 dankoc dankoc 2.6G Nov 26 19:23 mm10.rRNA.fa.gz.bwt
+-rw-rw-r-- 1 dankoc dankoc 652M Nov 26 19:23 mm10.rRNA.fa.gz.pac
+-rw-rw-r-- 1 dankoc dankoc 1.3G Nov 26 19:36 mm10.rRNA.fa.gz.sa
 ```
+
+Note the addition of five additional files, some of which are larger than the fastq file. These files are the index, representing the mouse genome in very effecient machine langugae. 
+
+You will refer to this genome index in subsequent commands as "mm10.rRNA.fa.gz". Note that the fastq file is not a part of the index. You can now delete your private copy if you wish.
 
 Next, align reads in the trimmed fastq.gz file to this mm10 reference genome: 
 
