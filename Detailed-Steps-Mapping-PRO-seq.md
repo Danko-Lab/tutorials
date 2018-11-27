@@ -611,15 +611,44 @@ Next, align reads in the trimmed fastq.gz file to this mm10 reference genome:
 [bwa_aln_core] calculate SA coordinate... 44.20 sec
 [bwa_aln_core] write to the disk... 0.05 sec
 [bwa_aln_core] 524288 sequences have been processed.
-...
+... [MANY MORE LINES LIKE THIS]
+[bwa_aln_core] calculate SA coordinate... 40.86 sec              
+[bwa_aln_core] write to the disk... 0.07 sec                     
+[bwa_aln_core] 41418752 sequences have been processed.           
+[bwa_aln_core] calculate SA coordinate... 5.02 sec               
+[bwa_aln_core] write to the disk... 0.01 sec                     
+[bwa_aln_core] 41452995 sequences have been processed.           
+[main] Version: 0.7.13-r1126
+[main] CMD: bwa aln -t 10 mm10.rRNA.fa.gz LZ_R4.no-PCR-dups.no-Adapters.fastq.gz
+[main] Real time: 824.319 sec; CPU: 6761.728 sec
 ```
 
 And convert the resulting alignments (.bai format) into a more standard BAM format: 
 
 ```
-bwa samse -n 1 -f LZ_R4.sam mm10.rRNA.fa.gz LZ_R4.sai LZ_R4.no-PCR-dups.no-Adapters.fastq.gz
-samtools view -b -S LZ_R4.sam > LZ_R4.bam
-samtools sort -@ 10 LZ_R4.bam -o LZ_R4.sort.bam
+[dankoc@cbsumm27 dankoc]$ bwa samse -n 1 -f LZ_R4.sam mm10.rRNA.fa.gz LZ_R4.sai LZ_R4.no-PCR-dups.no-Adapters.fastq.gz
+[bwa_aln_core] convert to sequence coordinate... 4.35 sec
+[bwa_aln_core] refine gapped alignments... 0.63 sec      
+[bwa_aln_core] print alignments... 0.35 sec              
+[bwa_aln_core] 262144 sequences have been processed.     
+[bwa_aln_core] convert to sequence coordinate... 4.18 sec
+[bwa_aln_core] refine gapped alignments... 0.61 sec
+[bwa_aln_core] print alignments... 0.34 sec
+[bwa_aln_core] 524288 sequences have been processed.
+[bwa_aln_core] convert to sequence coordinate... 4.03 sec
+[bwa_aln_core] refine gapped alignments... 0.60 sec
+[bwa_aln_core] print alignments... 0.35 sec
+[bwa_aln_core] 786432 sequences have been processed.
+[bwa_aln_core] convert to sequence coordinate... 4.00 sec
+```
+
+The output of this is a SAM file. See here for details on the SAM specification: https://en.wikipedia.org/wiki/SAM_(file_format)
+
+Note that SAM files are human readable text files, and are therefore very inefficient for long term storage. In the next step we will convert this SAM file into a machine-readable (but not human readable) file format called BAM. We will then sort the BAM file for downstream processing.
+
+```
+[dankoc@cbsumm27 dankoc]$ samtools view -b -S LZ_R4.sam > LZ_R4.bam
+[dankoc@cbsumm27 dankoc]$ samtools sort -@ 10 LZ_R4.bam -o LZ_R4.sort.bam
 ```
 
 The BAM file represents the location of reads that map to the reference genome. That's it - you've done it!
