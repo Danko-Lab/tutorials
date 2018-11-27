@@ -95,8 +95,8 @@ https://genome.ucsc.edu/cgi-bin/hgBlat
 Be sure to change the genome to "mouse".
 
 The second read is a good example: 
-<img align="left" src="etc\BLAT1.png" width="450">
-<img align="left" src="etc\BLAT2.png" width="400">
+<img align="left" src="etc\BLAT1.png" width="900">
+<img align="left" src="etc\BLAT2.png" width="900">
 
 Notice that while some of the reads map, many don't map as-is. Why do you think this might be?
 
