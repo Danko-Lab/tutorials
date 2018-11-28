@@ -37,6 +37,15 @@ scale_params = function(start, end, step=50, buffer=2000){
 }
 ```
 
-The lines that you will need to change are simply which files are used. These are found at the bottom of the file. Scroll down to the bottom. 
+The lines that you will need to change are simply which files are used. These are found at the bottom of the file. Scroll down to the bottom. Changes that you need to make include: 
+* Line 250: This points to the location of gene annotations. I have placed this file in ```/workdir/data/final_tus.txt```.
+* Line 258: This line sets the path to the bigWig files that are used in the analysis. In this analysis we are going to use spike-in normalized bigWigs. I have placed these here: ```/workdir/data/bigWigs/norm```.
+* Line 259-261: Change the bigWig file names, as appropriate.
+* Line 270: Normalized values for this new dataset may not be the same as the script was written for. Remove the ylim argument. Also change the file names.
 
-<img align="left" src="etc\BioHPCpwd.png" width="900">
+After making these changes, upload the script to your working directory. Run it using: 
+```
+[dankoc@cbsumm22 dankoc]$ R --no-save < ScaledMetaPlotFunctions.r 
+```
+
+<img align="left" src="etc\BioHPCpwd." width="900">
