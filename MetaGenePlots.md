@@ -6,7 +6,7 @@ Visulizing raw or processed data can be a very informative way to undersatnd the
 Scaled meta gene function
 -------------------------
 
-I have placed an R script that generates meta-gene plots here: /workdir/data/ScaledMetaPlotFunctions.r. [Credit for this file: Greg Booth in John Lis' lab; Andre Martins; others.]
+First, we are going to look at transcription over the entire gene. I have placed an R script that generates meta-gene plots over an entire gene region here: /workdir/data/ScaledMetaPlotFunctions.r. [Credit for this file: Greg Booth in John Lis' lab; Andre Martins; others.]
 
 Download this script using filezilla, and open it using Notepad++. 
 
@@ -48,4 +48,33 @@ After making these changes, upload the script to your working directory. Run it 
 [dankoc@cbsumm22 dankoc]$ R --no-save < ScaledMetaPlotFunctions.r 
 ```
 
+Note that two new PDF files were added to your directory: 
+```
+[dankoc@cbsumm22 dankoc]$ ls -lha *.pdf
+-rw-rw-r-- 1 dankoc dankoc 110K Nov 29 12:12  MetaGene.LenNorm-0-50.pdf
+-rw-rw-r-- 1 dankoc dankoc 118K Nov 29 12:12  MetaGene.LenNorm.pdf
+```
+
+Download the resulting PDF files and look at them (mine is below):
+
 <img align="left" src="etc\BioHPCpwd." width="900">
+
+Metagene Focused on TSS
+-----------------------
+
+Note that one of the major differences in this analysis was the paused peak. Next, focus on this and make a meta plot without normalizing to length. I have placed a script to complete this task here: ```/workdir/data/writeMetaPlots.ChROseq.R```. 
+
+Again, please download this script and edit the following lines: 
+* Line 3: Change the gene annotation file.
+* Line 51: Change the path to the bigWig files.
+
+Then upload the file and run it using: 
+```
+[dankoc@cbsumm22 dankoc]$ R --no-save < writeMetaPlots.ChROseq.R
+```
+
+Again, download and look at the result. 
+
+<img align="left" src="etc\BioHPCpwd." width="900">
+
+Think about what do you make of this?! We're about to discuss it!
