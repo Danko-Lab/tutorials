@@ -1,7 +1,7 @@
 BioMG 7810 practical day 2: Meta gene plots.
 ============================================
 
-Visulizing raw or processed data can be a very informative way to undersatnd the biology of a process. The first step today is going to be downloading and visualizing 
+Visulizing raw or processed data can be a very informative way to undersatnd the biology of a process. Yesterday/ homework was to look at the raw data. Today, we are going to start by generating a "meta-plot", or a summary of data near a specific type of genetic feature.
 
 Scaled meta gene function
 -------------------------
