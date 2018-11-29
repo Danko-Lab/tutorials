@@ -43,3 +43,5 @@ The next step is to use these raw counts to plot the pausing index.
 To ease the transition for those not familiar with R, I have also provided a script that can write out violin plots (see here: ```/workdir/data/pauseIndexCDFs.R```). I would encourage those with R experience to poke around and look at the data in several different ways. To work with this sciprt, download it to your machine and make the following changes: 
 * Line 26: Specify the path to your own ```data-rpkms.RData``` file.
 
+
+<img align="left" src="etc\PI-by-stage.png" width="900">
