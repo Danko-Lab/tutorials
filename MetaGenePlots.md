@@ -57,7 +57,7 @@ Note that two new PDF files were added to your directory:
 
 Download the resulting PDF files and look at them (mine is below):
 
-<img align="left" src="etc\BioHPCpwd." width="900">
+<img align="left" src="etc\chroseq.lnmeta.png" width="900">
 
 Metagene Focused on TSS
 -----------------------
@@ -75,6 +75,6 @@ Then upload the file and run it using:
 
 Again, download and look at the result. 
 
-<img align="left" src="etc\BioHPCpwd." width="900">
+<img align="left" src="etc\chroseq.tssmeta.png" width="900">
 
 Think about what do you make of this?! We're about to discuss it!
