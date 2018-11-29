@@ -8,7 +8,7 @@ What is the 'pausing index'?
 
 The pausing index is deinfed as the ratio of reads in the pause peak to the gene body [Pause]/[Gene body]. 
 
-<img align="left" src="etc\BPausingIndex.png" width="900">
+<img align="left" src="etc\PausingIndex.png" width="900">
 
 Note that the window definitions are arbitrary. Many different definitions have been used in the literature, and there are valid arguments for all of them. The main important aspect of this type of analysis is that your results are consistent regardless of the definition of pausing index. 
 
