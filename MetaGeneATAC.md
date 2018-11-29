@@ -56,6 +56,11 @@ pdf("ATAC-seq_TSS.pdf")
  plot(-100000, -1000000, xlim= c(0,NROW(LZatac$data$middle)), ylim=ylims, xlab="Distance to TSS", ylab="ATAC-seq Signal")
  lines(LZatac$data$middle/LZatac$signal*10^8, col= "#cb6751")
  lines(Patac$data$middle/Patac$signal*10^8,  col= "#9e6ebd")
- lines(Datac$middle/Datac$signal*10^8, col= "#7aa457")
+ lines(Datac$data$middle/Datac$signal*10^8, col= "#7aa457")
 dev.off()
 ```
+
+Finally, download and view ```ATAC-seq_TSS.pdf```.
+
+The resulting figure is here: 
+<img align="left" src="etc\ATACmeta.png" width="900">
