@@ -48,7 +48,14 @@ After making these changes, upload the script to your working directory. Run it 
 [dankoc@cbsumm22 dankoc]$ R --no-save < ScaledMetaPlotFunctions.r 
 ```
 
-Download the result and look at it (mine is below):
+Note that two new PDF files were added to your directory: 
+```
+[dankoc@cbsumm22 dankoc]$ ls -lha *.pdf
+-rw-rw-r-- 1 dankoc dankoc 110K Nov 29 12:12  MetaGene.LenNorm-0-50.pdf
+-rw-rw-r-- 1 dankoc dankoc 118K Nov 29 12:12  MetaGene.LenNorm.pdf
+```
+
+Download the resulting PDF files and look at them (mine is below):
 
 <img align="left" src="etc\BioHPCpwd." width="900">
 
